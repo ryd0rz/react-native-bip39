@@ -1,9 +1,9 @@
-var fetch = require('node-fetch')
-var fs = require('fs')
-var path = require('path')
+let fetch = require('node-fetch')
+let fs = require('fs')
+let path = require('path')
 
-var log = console.log
-var WORDLISTS = [
+let log = console.log
+let WORDLISTS = [
   'chinese_simplified',
   'chinese_traditional',
   'english',
@@ -16,15 +16,15 @@ var WORDLISTS = [
 
 function update () {
   download().then(function (wordlists) {
-    var promises = Object.keys(wordlists).map(function (name) { return save(name, wordlists[name]) })
+    let promises = Object.keys(wordlists).map(function (name) { return save(name, wordlists[name]) })
     return Promise.all(promises)
   })
 }
 
 function download () {
-  var wordlists = {}
+  let wordlists = {}
 
-  var promises = WORDLISTS.map(function (name) {
+  let promises = WORDLISTS.map(function (name) {
     return fetchRaw(name).then(toJSON).then(function (wordlist) { wordlists[name] = wordlist })
   })
 
@@ -32,7 +32,7 @@ function download () {
 }
 
 function fetchRaw (name) {
-  var url = 'https://raw.githubusercontent.com/bitcoin/bips/master/bip-0039/' + name + '.txt'
+  let url = 'https://raw.githubusercontent.com/bitcoin/bips/master/bip-0039/' + name + '.txt'
   log('download ' + url)
 
   return fetch(url).then(function (response) { return response.text() })
@@ -43,8 +43,8 @@ function toJSON (content) {
 }
 
 function save (name, wordlist) {
-  var location = path.join(__dirname, '..', 'wordlists', name + '.json')
-  var content = JSON.stringify(wordlist, null, 2) + '\n'
+  let location = path.join(__dirname, '..', 'wordlists', name + '.json')
+  let content = JSON.stringify(wordlist, null, 2) + '\n'
   log('save ' + wordlist.length + ' words to ' + location)
 
   return new Promise(function (resolve, reject) {
