@@ -1,6 +1,5 @@
 let Buffer = require('safe-buffer').Buffer
-let Hash = require('hash.js')
-const createHash = require("create-hash")
+let createHash= require('hash.js')
 let pbkdf2 = require('react-native-fast-crypto').pbkdf2.deriveAsync
 let randomBytes = require('react-native-randombytes').randomBytes
 
@@ -43,7 +42,7 @@ function sha256 (data) {
 function deriveChecksumBits (entropyBuffer) {
   let ENT = entropyBuffer.length * 8
   let CS = ENT / 32
-  let hash = createHash('sha256').update(entropyBuffer).digest()
+  let hash = hash.sha256().update(entropyBuffer).digest('hex')
 
   return bytesToBinary([].slice.call(hash)).slice(0, CS)
 }
