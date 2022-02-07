@@ -1,5 +1,6 @@
 let Buffer = require('safe-buffer').Buffer
 let Hash = require('hash.js')
+const createHash = require("create-hash")
 let pbkdf2 = require('react-native-fast-crypto').pbkdf2.deriveAsync
 let randomBytes = require('react-native-randombytes').randomBytes
 
